@@ -1,0 +1,16 @@
+# Ignora as pastas de dependências em qualquer lugar do projeto
+**/node_modules/
+**/venv/
+**/.venv/
+
+# Ignora arquivos temporários do Python
+**/__pycache__/
+*.pyc
+
+# Ignora pastas de distribuição/saída
+**/dist/
+**/build/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
