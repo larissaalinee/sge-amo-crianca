@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { mockAssistidos } from "../../data/amoData";
+
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -19,16 +19,23 @@ import {
   MapPin,
 } from "lucide-react";
 import { toast } from "sonner";
+import { Assistido } from "../../data/amoData";
 
 export function AssistidosList() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredAssistidos, setFilteredAssistidos] = useState(new Array<Assistido>());
 
-  const filteredAssistidos = mockAssistidos.filter(
-    (assistido) =>
-      assistido.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      assistido.cpf.includes(searchTerm) ||
-      assistido.phone.includes(searchTerm)
-  );
+  useEffect(() => {
+    const fetchFilteredAssistidos = async () => {
+      const assistidos = await fetch(
+        `http://127.0.0.1:5000/api/assistidos`
+      ).then((res) => res.json());
+
+      setFilteredAssistidos(assistidos);
+    };
+
+    fetchFilteredAssistidos();
+  }, [searchTerm]);
 
   const handleDelete = (id: string, name: string) => {
     if (confirm(`Tem certeza que deseja excluir o assistido ${name}?`)) {
@@ -74,14 +81,14 @@ export function AssistidosList() {
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-gray-600 mb-1">Total</p>
-            <p className="text-2xl font-bold">{mockAssistidos.length}</p>
+            <p className="text-2xl font-bold">{filteredAssistidos.length}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-gray-600 mb-1">Com Transporte</p>
             <p className="text-2xl font-bold">
-              {mockAssistidos.filter((p) => p.needsTransport).length}
+              {filteredAssistidos.filter((p) => p.needsTransport).length}
             </p>
           </CardContent>
         </Card>
@@ -89,7 +96,7 @@ export function AssistidosList() {
           <CardContent className="p-4">
             <p className="text-sm text-gray-600 mb-1">Usa Cadeirinha</p>
             <p className="text-2xl font-bold">
-              {mockAssistidos.filter((p) => p.usesCarSeat).length}
+              {filteredAssistidos.filter((p) => p.usesCarSeat).length}
             </p>
           </CardContent>
         </Card>
@@ -97,7 +104,7 @@ export function AssistidosList() {
           <CardContent className="p-4">
             <p className="text-sm text-gray-600 mb-1">Com Alergias</p>
             <p className="text-2xl font-bold">
-              {mockAssistidos.filter((p) => p.allergies.length > 0).length}
+              {filteredAssistidos.filter((p) => p.allergies?.length > 0).length}
             </p>
           </CardContent>
         </Card>
@@ -127,7 +134,7 @@ export function AssistidosList() {
                         <p className="text-sm text-gray-600">CPF: {assistido.cpf}</p>
                         <p className="text-sm text-gray-600">
                           Nascimento:{" "}
-                          {format(assistido.birthDate, "dd/MM/yyyy", { locale: ptBR })}
+                          {assistido.birthDate &&format(assistido.birthDate, "dd/MM/yyyy", { locale: ptBR })}
                         </p>
                       </div>
                       <div className="flex flex-wrap gap-2">
@@ -143,7 +150,7 @@ export function AssistidosList() {
                             Cadeirinha
                           </Badge>
                         )}
-                        {assistido.allergies.length > 0 && (
+                        {assistido.allergies?.length > 0 && (
                           <Badge variant="destructive">
                             <AlertCircle className="size-3 mr-1" />
                             Alergias
@@ -163,7 +170,7 @@ export function AssistidosList() {
                       </div>
                     </div>
 
-                    {assistido.allergies.length > 0 && (
+                    {assistido.allergies?.length > 0 && (
                       <div className="mb-3">
                         <p className="text-sm font-medium text-gray-900 mb-1">
                           Alergias:
@@ -178,7 +185,7 @@ export function AssistidosList() {
                       </div>
                     )}
 
-                    {assistido.dietaryRestrictions.length > 0 && (
+                    {assistido.dietaryRestrictions?.length > 0 && (
                       <div className="mb-3">
                         <p className="text-sm font-medium text-gray-900 mb-1">
                           Restrições Alimentares:
@@ -202,7 +209,7 @@ export function AssistidosList() {
                       </div>
                     )}
 
-                    {assistido.familyMembers.length > 0 && (
+                    {assistido.familyMembers?.length > 0 && (
                       <div>
                         <p className="text-sm font-medium text-gray-900 mb-2">
                           Familiares ({assistido.familyMembers.length}):

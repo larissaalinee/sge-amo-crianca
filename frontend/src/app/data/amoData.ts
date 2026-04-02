@@ -10,6 +10,7 @@ export interface User {
 }
 
 export interface Assistido {
+  usesCarSeat: boolean; // Novo campo para indicar se o assistido necessita de cadeirinha
   id: string;
   name: string;
   cpf: string;
@@ -257,6 +258,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Rua Júlio de Castilhos, 245 - Centro - Novo Hamburgo/RS",
     phone: "(51) 99999-1111",
     needsTransport: true,
+    usesCarSeat: true,
     allergies: ["Amendoim", "Lactose"],
     dietaryRestrictions: ["Sem lactose", "Sem glúten"],
     specialNeeds: "Cadeirinha infantil obrigatória",
@@ -282,6 +284,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Av. Victor Barreto, 1580 - Centro - Novo Hamburgo/RS",
     phone: "(51) 99999-2222",
     needsTransport: true,
+    usesCarSeat: false,
     allergies: [],
     dietaryRestrictions: ["Vegetariana"],
     specialNeeds: "Cadeira de rodas - necessita de rampa de acesso",
@@ -307,6 +310,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Rua Gen. Osório, 890 - Hamburgo Velho - Novo Hamburgo/RS",
     phone: "(51) 99999-3333",
     needsTransport: false,
+    usesCarSeat: false,
     allergies: ["Ovo"],
     dietaryRestrictions: ["Sem ovo"],
     specialNeeds: "",
@@ -332,6 +336,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Rua Pedro Adams Filho, 456 - Rio Branco - Novo Hamburgo/RS",
     phone: "(51) 99999-4444",
     needsTransport: true,
+    usesCarSeat: false,
     allergies: [],
     dietaryRestrictions: [],
     specialNeeds: "",
@@ -348,6 +353,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Rua Leopoldo Rassier, 320 - Pátria Nova - Novo Hamburgo/RS",
     phone: "(51) 99999-5555",
     needsTransport: true,
+    usesCarSeat: false,
     allergies: [],
     dietaryRestrictions: [],
     specialNeeds: "Recebeu alta médica em março/2026",
@@ -373,6 +379,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Av. Nações Unidas, 1250 - Santo Afonso - Novo Hamburgo/RS",
     phone: "(51) 99999-6666",
     needsTransport: true,
+    usesCarSeat: true,
     allergies: [],
     dietaryRestrictions: [],
     specialNeeds: "Precisa de assento elevado",
@@ -398,6 +405,7 @@ export const mockAssistidos: Assistido[] = [
     address: "Rua First, 780 - Ideal - Novo Hamburgo/RS",
     phone: "(51) 99999-7777",
     needsTransport: true,
+    usesCarSeat: false,
     allergies: [],
     dietaryRestrictions: [],
     specialNeeds: "Acompanhado pela avó - mãe trabalha",
