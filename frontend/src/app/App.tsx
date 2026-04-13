@@ -1,24 +1,21 @@
-import { RouterProvider, createBrowserRouter } from 'react-router';
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router';
 import { Toaster } from "./components/ui/sonner";
 import { Layout } from "./components/Layout";
 import { Login } from "./components/Login";
 import { RedirectToAssistidos } from "./components/RedirectToAssistidos";
 import { AssistidosWrapper } from "./components/wrappers/AssistidosWrapper";
 import { AssistidoFormWrapper } from "./components/wrappers/AssistidoFormWrapper";
-import { ProfissionaisWrapper } from "./components/wrappers/ProfissionaisWrapper";
 import { ProfessionalFormWrapper } from "./components/wrappers/ProfessionalFormWrapper";
-import { VeiculosWrapper } from "./components/wrappers/VeiculosWrapper";
 import { VehicleFormWrapper } from "./components/wrappers/VehicleFormWrapper";
-import { DriversWrapper } from "./components/wrappers/DriversWrapper";
 import { DriverFormWrapper } from "./components/wrappers/DriverFormWrapper";
 import { AgendaWrapper } from "./components/wrappers/AgendaWrapper";
 import { AppointmentFormWrapper } from "./components/wrappers/AppointmentFormWrapper";
 import { TransporteWrapper } from "./components/wrappers/TransporteWrapper";
 import { TransportManagerWrapper } from "./components/wrappers/TransportManagerWrapper";
-import { DriverRoutesWrapper } from "./components/wrappers/DriverRoutesWrapper";
+import { TransportTabsWrapper } from "./components/wrappers/TransportTabsWrapper";
 import { LanchesWrapper } from "./components/wrappers/LanchesWrapper";
 import { RelatorioWrapper } from "./components/wrappers/RelatorioWrapper";
-import { ProfessionalScheduleWrapper } from "./components/wrappers/ProfessionalScheduleWrapper";
+import { ProfessionalTabsWrapper } from "./components/wrappers/ProfessionalTabsWrapper";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +36,7 @@ const router = createBrowserRouter([
       },
       { path: "assistidos/novo", Component: AssistidoFormWrapper },
       { path: "assistidos/editar/:id", Component: AssistidoFormWrapper },
-      { path: "profissionais", Component: ProfissionaisWrapper },
+      { path: "profissionais", element: <Navigate to="/agenda-profissionais/profissionais" replace /> },
       {
         path: "profissionais/novo",
         Component: ProfessionalFormWrapper,
@@ -48,19 +45,23 @@ const router = createBrowserRouter([
         path: "profissionais/editar/:id",
         Component: ProfessionalFormWrapper,
       },
-      { path: "veiculos", Component: VeiculosWrapper },
+      { path: "veiculos", element: <Navigate to="/gestao-transporte/veiculos" replace /> },
       { path: "veiculos/novo", Component: VehicleFormWrapper },
       { path: "veiculos/editar/:id", Component: VehicleFormWrapper },
-      { path: "motoristas", Component: DriversWrapper },
+      { path: "motoristas", element: <Navigate to="/gestao-transporte/motoristas" replace /> },
       { path: "motoristas/novo", Component: DriverFormWrapper },
       { path: "motoristas/editar/:id", Component: DriverFormWrapper },
       { path: "agenda", Component: AgendaWrapper },
       { path: "agenda/novo", Component: AppointmentFormWrapper },
       { path: "agenda/editar/:id", Component: AppointmentFormWrapper },
-      { path: "minha-agenda", Component: ProfessionalScheduleWrapper },
+      { path: "agenda-profissionais", element: <Navigate to="/agenda-profissionais/agenda" replace /> },
+      { path: "agenda-profissionais/:tab", Component: ProfessionalTabsWrapper },
+      { path: "minha-agenda", element: <Navigate to="/agenda-profissionais/agenda" replace /> },
       { path: "transporte", Component: TransporteWrapper },
       { path: "gestao-translado", Component: TransportManagerWrapper },
-      { path: "rotas", Component: DriverRoutesWrapper },
+      { path: "rotas", element: <Navigate to="/gestao-transporte/rotas" replace /> },
+      { path: "gestao-transporte", element: <Navigate to="/gestao-transporte/rotas" replace /> },
+      { path: "gestao-transporte/:tab", Component: TransportTabsWrapper },
       { path: "lanches", Component: LanchesWrapper },
       {
         path: "relatorio-semanal",

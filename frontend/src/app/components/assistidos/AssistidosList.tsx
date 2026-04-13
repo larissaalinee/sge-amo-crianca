@@ -156,6 +156,12 @@ export function AssistidosList() {
                             Alergias
                           </Badge>
                         )}
+                        {assistido.dietaryRestrictions?.length > 0 && (
+                          <Badge variant="destructive">
+                            <AlertCircle className="size-3 mr-1" />
+                            Restrição Alimentar
+                          </Badge>
+                        )}
                       </div>
                     </div>
 
@@ -192,7 +198,7 @@ export function AssistidosList() {
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {assistido.dietaryRestrictions.map((restriction, i) => (
-                            <Badge key={i} variant="outline">
+                            <Badge key={i} variant="outline" className="text-red-700 border-red-300">
                               {restriction}
                             </Badge>
                           ))}

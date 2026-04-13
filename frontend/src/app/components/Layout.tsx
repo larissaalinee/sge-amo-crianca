@@ -1,40 +1,53 @@
 import { Outlet, Link, useLocation } from "react-router";
 import {
   Users,
-  Stethoscope,
-  Car,
   CalendarDays,
-  Truck,
   UtensilsCrossed,
   FileText,
   Menu,
   X,
   LogIn,
-  UserCog,
-  MapPin,
-  TruckIcon,
   Calendar,
+  TruckIcon,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "./ui/utils";
 import { useState } from "react";
 
+type NavItem = {
+  type: "link";
+  path: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
 export function Layout() {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const navItems = [
-    { path: "/login", label: "Login", icon: LogIn },
-    { path: "/assistidos", label: "Assistidos", icon: Users },
-    { path: "/profissionais", label: "Profissionais", icon: Stethoscope },
-    { path: "/veiculos", label: "Veículos", icon: Car },
-    { path: "/motoristas", label: "Motoristas", icon: UserCog },
-    { path: "/agenda", label: "Agenda Semanal", icon: CalendarDays },
-    { path: "/minha-agenda", label: "Agenda Profissionais", icon: Calendar },
-    { path: "/gestao-translado", label: "Gestão de Transporte", icon: TruckIcon },
-    { path: "/rotas", label: "Rotas", icon: MapPin },
-    { path: "/lanches", label: "Lanches", icon: UtensilsCrossed },
-    { path: "/relatorio-semanal", label: "Relatório Semanal", icon: FileText },
+  const navItems: NavItem[] = [
+    { type: "link", path: "/login", label: "Login", icon: LogIn },
+    { type: "link", path: "/assistidos", label: "Assistidos", icon: Users },
+    { type: "link", path: "/agenda", label: "Agenda Semanal", icon: CalendarDays },
+    {
+      type: "link",
+      path: "/agenda-profissionais",
+      label: "Agenda Profissionais",
+      icon: Calendar,
+    },
+    {
+      type: "link",
+      path: "/gestao-transporte",
+      label: "Gestão de Transporte",
+      icon: TruckIcon,
+    },
+    { type: "link", path: "/lanches", label: "Lanches", icon: UtensilsCrossed },
+    {
+      type: "link",
+      path: "/relatorio-semanal",
+      label: "Relatório Semanal",
+      icon: FileText,
+    },
   ];
 
   const isActive = (path: string) => {

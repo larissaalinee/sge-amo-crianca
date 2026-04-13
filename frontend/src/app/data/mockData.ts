@@ -18,6 +18,15 @@ export interface User {
   avatar: string;
 }
 
+export interface Assistido {
+  id: string;
+  nome: string;
+  dataNascimento: string;
+  categoria: string;
+  status: 'Ativo' | 'Inativo';
+  atendimentos: number;
+}
+
 export const mockUsers: User[] = [
   {
     id: "1",
